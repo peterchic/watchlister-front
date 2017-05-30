@@ -1,8 +1,10 @@
 import React from 'react'
 
+var selectedValue = 0
+
 export default (props) => {
   // console.log(props.movieResults.results);
-
+  
   const watchlist = props.watchlists
   return(
     <div>
@@ -23,12 +25,12 @@ export default (props) => {
             <ul>{movie.overview}</ul>
           <img src={posterURL} />
         <div>
-          <form>
-            <select >
+          
+            <select onChange={selectChanged} >
               {watchlist.map(function(ls){ return <option value={ls.id}>{ls.name}</option>})}
             </select>
-             <input type='submit' onClick={() => props.handleAddMovie(movie)}/>
-          </form>
+             <button onClick={() => props.handleAddMovie(movie, selectedValue)}/>
+         
         </div>
           {/* onerror=this.src='../notFound.jpg'"/> */}
         {/* <img src={require("../notFound.jpg")}/> */}
@@ -37,4 +39,9 @@ export default (props) => {
         }) : null }
     </div>
   )
+}
+
+function selectChanged(e) {
+  console.log(e.target.value)
+  selectedValue = e.target.value
 }
