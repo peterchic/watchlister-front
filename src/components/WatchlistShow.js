@@ -6,34 +6,45 @@
 
 import React, { Component } from 'react'
 
+var list;
+var num = 0
 export default class WatchlistShow extends Component {
+  
   constructor(props){
     super()
 
     this.state = {
-      watchlists: ''
-    }
+      emptyString: "",
+      watchLists: ""
+     }
+  };
+
+
+  componentWillMount() {
+
+   fetch('http://localhost:3000/api/v1/watchlists')
+      .then(res => res.json())
+      .then((railsDataArr) => this.setState({
+                watchLists: railsDataArr
+              })
+            
+          )
+   
   }
 
-  componentWillReceiveProps(){
-    console.log('peter');
-    fetch('http://localhost:3000/api/v1/watchlists')
-      .then(res => res.json())
-      .then(function(railsDataArr) {
-        console.log('railsData here: ', railsDataArr);
-        this.setState({
-        watchlists: railsDataArr
-      })
-    }.bind(this)
-  )
-  }
 
   render(){
-    // console.log('Should see show lists here: ', this.state.watchlists);
+  
+   if (this.state.watchLists){
+    console.log(this.state.watchLists)
     return(
       <div>
-        {this.state.watchlists}
+       {this.state.watchLists.map((li,i) => <h1 key={i}>{li.description}</h1>)}
       </div>
     )
-  }
-}
+  } else 
+    return <div><h1>LOADING.....</h1></div>
+   }
+
+  };
+

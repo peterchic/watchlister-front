@@ -19,25 +19,6 @@ export default class WatchlistContainer extends React.Component {
     }
   }
 
-  // componentDidMount(){
-  //   fetch('http://localhost:3000/api/v1/watchlists')
-  //     .then(res => res.json())
-  //     .then(railsDataArr => this.setState({
-  //       watchlists: railsDataArr
-  //     })
-  //   )
-  // }
-
-  // handleAddList(list){
-  //   createWatchlist(list)
-  //     .then( (listData) => {
-  //       console.log(this.state.watchlists);
-  //       this.setState( prevState =>  ({ watchlists: [...prevState.watchlists, listData] }) )
-  //       // this.setState({Object.assign({}, this.state.watchlists, list)})
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
 
 
   fetchMDB(e){
@@ -59,7 +40,7 @@ export default class WatchlistContainer extends React.Component {
   }
 
   createList(name, description){
-    console.log(name);
+    console.log(name, description);
     fetch("http://localhost:3000/api/v1/watchlists", {
       headers: {
         'Accept': 'application/json',
