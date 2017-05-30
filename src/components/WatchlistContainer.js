@@ -47,8 +47,9 @@ export default class WatchlistContainer extends React.Component {
       }, () => console.log(this.state.watchlists)))
     }
 
-  handleAddMovie(movie){
-    createJoin(movie)
+  handleAddMovie(movie, watchlistId){
+
+    createJoin(movie, watchlistId)
   }
 
   // onCreateJoin(watchlist, movie){

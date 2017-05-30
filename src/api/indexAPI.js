@@ -44,19 +44,19 @@ export function getWatchlists(){
 
 
 
-export function createJoin(movie){
-  console.log('trying to create join: ',  movie)
-  // return fetch("http://localhost:3000/api/v1/watchlist_movies", {
-  //   headers: {
-  //     'Accept': 'application/json',
-  //     'Content-Type': 'application/json'
-  //   },
-  //   method: 'POST',
-  //   body: JSON.stringify({
-  //     watchlist_movie: {watchlist_id: watchlist.id, movie: movie} 
-  //   })
-  // })
-  // .then( function (res) {console.log(res.json())} )
+export function createJoin(movie, watchlistId){
+  console.log('This is it: ',  movie, watchlistId)
+  return fetch("http://localhost:3000/api/v1/watchlist_movies", {
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify({
+      watchlist_movie: {watchlist_id: watchlistId, movie: movie }
+    })
+  })
+  .then( function (res) {console.log(res.json())} )
 }
 
 

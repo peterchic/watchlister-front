@@ -40,3 +40,4 @@ export default function AllWatchlists(props) {
   } else 
     return <div><h1>LOADING.....</h1></div>
   }
+
