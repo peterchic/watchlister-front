@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import WatchlistCard from './WatchlistCard'
+import WatchlistShow from './WatchlistShow'
 import SearchForm from './SearchForm'
 import MovieCard from './MovieCard'
 import CreateList from './CreateList'
 import MovieList from './MovieList'
+import { getWatchlists, createJoin, createList, MDBapiCall } from '../api/indexAPI' 
+import AllWatchlists from './AllWatchlists'
 
 
 
@@ -19,54 +21,49 @@ export default class WatchlistContainer extends React.Component {
   }
 
 
-  fetchMDB(e){
-    this.setState(
-      { searchTerm: e.target.value }
-    , function(){
-      console.log(this.state.searchTerm);
+  handleChange(e){
+    this.setState({
+      searchTerm: e.target.value
     })
   }
 
-  MDBapiCall(){
-    const API_KEY = 'bf0aa3384a6ec0ec139e996381cab539'
-    const URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${this.state.searchTerm}`
-    fetch(URL)
-    .then(response => response.json())
-    .then(MDBData => this.setState({ movieResults: MDBData })
-    )
+  handleSearch(searchTerm) {
+    MDBapiCall(searchTerm)
+    .then(MDBData => this.setState({ movieResults: MDBData }))
   }
 
-  createList(name, description){
-    console.log(name, description);
-    fetch("http://localhost:3000/api/v1/watchlists", {
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify({
-        watchlist: {
-          name: name,
-          description: description
-        }
-      })
-    })
-    .then( res => res.json())
+  handleCreateList(name, description) {
+    createList(name, description)
+    .then( watchlist => this.setState( prevState =>  ({ watchlists: [...prevState.watchlists, watchlist] }) ))
     .then( () => this.props.history.push('/watchlists'))
     .catch(e => console.log('error', e))
   }
 
+
+    componentDidMount() {
+      getWatchlists()
+      .then( res => this.setState({
+        watchlists: res
+      }, () => console.log(this.state.watchlists)))
+    }
+
+  handleAddMovie(movie){
+    createJoin(movie)
+  }
+
+  // onCreateJoin(watchlist, movie){
+  //   createJoin(watchlist, movie)
+  // }
+
   render() {
     // debugger
     return (
-      <BrowserRouter>
-        <div>
-          <WatchlistCard watchlists={this.state.watchlists} />
-          <CreateList createList={this.createList.bind(this)}/>
-          <SearchForm handleChange={this.fetchMDB.bind(this)} handleSubmit={this.MDBapiCall.bind(this)} />
-          <MovieList movieResults={this.state.movieResults} />
-        </div>
-    </BrowserRouter>
+      <div>
+           <AllWatchlists watchlists={this.state.watchlists} />
+           <CreateList handleCreateList={this.handleCreateList.bind(this)}/>
+           <SearchForm handleSearch={this.handleSearch.bind(this)} handleChange={this.handleChange.bind(this)} />
+           <MovieList watchlists={this.state.watchlists} movieResults={this.state.movieResults} handleAddMovie={this.handleAddMovie.bind(this)} />
+      </div>
     )
   }
 }
