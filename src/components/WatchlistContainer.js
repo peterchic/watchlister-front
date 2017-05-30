@@ -5,7 +5,7 @@ import SearchForm from './SearchForm'
 import MovieCard from './MovieCard'
 import CreateList from './CreateList'
 import MovieList from './MovieList'
-import { getWatchlists, createJoin, createList } from '../api/indexAPI' 
+import { getWatchlists, createJoin, createList, MDBapiCall } from '../api/indexAPI' 
 import AllWatchlists from './AllWatchlists'
 
 
@@ -27,13 +27,9 @@ export default class WatchlistContainer extends React.Component {
     })
   }
 
-  MDBapiCall(){
-    const API_KEY = 'bf0aa3384a6ec0ec139e996381cab539'
-    const URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&query=${this.state.searchTerm}`
-    fetch(URL)
-    .then(response => response.json())
-    .then(MDBData => this.setState({ movieResults: MDBData })
-    )
+  handleSearch(searchTerm) {
+    MDBapiCall(searchTerm)
+    .then(MDBData => this.setState({ movieResults: MDBData }))
   }
 
   handleCreateList(name, description) {
@@ -43,6 +39,7 @@ export default class WatchlistContainer extends React.Component {
     .catch(e => console.log('error', e))
   }
 
+
     componentDidMount() {
       getWatchlists()
       .then( res => this.setState({
@@ -50,6 +47,9 @@ export default class WatchlistContainer extends React.Component {
       }, () => console.log(this.state.watchlists)))
     }
 
+  handleAddMovie(movie){
+    createJoin(movie)
+  }
 
   // onCreateJoin(watchlist, movie){
   //   createJoin(watchlist, movie)
@@ -61,7 +61,8 @@ export default class WatchlistContainer extends React.Component {
       <div>
            <AllWatchlists watchlists={this.state.watchlists} />
            <CreateList handleCreateList={this.handleCreateList.bind(this)}/>
-           <SearchForm searchTerm={this.state.searchTerm} handleChange={this.handleChange.bind(this)} />
+           <SearchForm handleSearch={this.handleSearch.bind(this)} handleChange={this.handleChange.bind(this)} />
+           <MovieList watchlists={this.state.watchlists} movieResults={this.state.movieResults} handleAddMovie={this.handleAddMovie.bind(this)} />
       </div>
     )
   }

@@ -16,16 +16,21 @@ export default (props) => {
         }
         // console.log(posterURL);
 
-  return (
-    <div key={movie.id} className='col-sm-3'>
-      <ul><h2>{movie.title}</h2></ul>
-      <ul><h4>Release Date: {movie.release_date}</h4></ul>
-      <ul>{movie.overview}</ul>
-      <img src={posterURL} />
-      <div>
-        <button value="Add To List" onClick={() => props.onCreateMovie(movie)}/>
-          </div>
-          ]{/* onerror=this.src='../notFound.jpg'"/> */}
+      return (
+         <div key={movie.id} className='col-sm-3'>
+           <ul><h2>{movie.title}</h2></ul>
+           <ul><h4>Release Date: {movie.release_date}</h4></ul>
+            <ul>{movie.overview}</ul>
+          <img src={posterURL} />
+        <div>
+          <form>
+            <select >
+              {watchlist.map(function(ls){ return <option value={ls.id}>{ls.name}</option>})}
+            </select>
+             <input type='submit' onClick={() => props.handleAddMovie(movie)}/>
+          </form>
+        </div>
+          {/* onerror=this.src='../notFound.jpg'"/> */}
         {/* <img src={require("../notFound.jpg")}/> */}
         </div>
         )
