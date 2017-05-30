@@ -6,8 +6,6 @@
 
 import React, { Component } from 'react'
 
-var list;
-var num = 0
 export default class WatchlistShow extends Component {
   
   constructor(props){
@@ -36,10 +34,9 @@ export default class WatchlistShow extends Component {
   render(){
   
    if (this.state.watchLists){
-    console.log(this.state.watchLists)
     return(
       <div>
-       {this.state.watchLists.map((li,i) => <h1 key={i}>{li.description}</h1>)}
+       {this.state.watchLists.map((li,i) => <h1 key={i}>{li.name} {li.description}</h1>)}
       </div>
     )
   } else 

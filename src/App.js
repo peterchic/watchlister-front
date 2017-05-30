@@ -4,13 +4,15 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css';
 import WatchlistContainer from './components/WatchlistContainer'
 import WatchlistShow from './components/WatchlistShow'
+// import SearchForm
 // import { Navbar, Jumbotron, Button } from 'react-bootstrap';
 //
 class App extends Component {
-  render() {
+  render() {  
     return (
       <BrowserRouter>
         <div className="App">
+          
           <Switch>
             <Route exact path='/' component={WatchlistContainer} />
             <Route path='/watchlists' component={WatchlistShow} />

@@ -4,7 +4,7 @@ export default (props) => {
   console.log(props.movieResults.results);
   return(
     <div>
-      {props.movieResults.results ?         props.movieResults.results.map(function(movie){
+      {props.movieResults.results ? props.movieResults.results.map(function(movie){
         let posterURL = ''
         if(!movie.poster_path){
           posterURL = 'require("../notFound.jpg")'
@@ -19,6 +19,9 @@ export default (props) => {
             <ul><h4>Release Date: {movie.release_date}</h4></ul>
             <ul>{movie.overview}</ul>
             <img src={posterURL} />
+            <div>
+            <input type="button" value="Add To List" />
+            </div>
             {/* onerror=this.src='../notFound.jpg'"/> */}
             {/* <img src={require("../notFound.jpg")}/> */}
               </div>

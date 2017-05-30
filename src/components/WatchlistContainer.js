@@ -5,8 +5,7 @@ import SearchForm from './SearchForm'
 import MovieCard from './MovieCard'
 import CreateList from './CreateList'
 import MovieList from './MovieList'
-// import WatchlistShow from './WatchlistShow'
-// import { createWatchlist }  from '../api/indexAPI'
+
 
 
 export default class WatchlistContainer extends React.Component {
@@ -20,9 +19,7 @@ export default class WatchlistContainer extends React.Component {
   }
 
 
-
   fetchMDB(e){
-    // console.log(e.target.value);
     this.setState(
       { searchTerm: e.target.value }
     , function(){
@@ -73,4 +70,3 @@ export default class WatchlistContainer extends React.Component {
     )
   }
 }
-// 'https://image.tmdb.org/t/p/w185/bbYNNEGLXrV3lJpHDg7CKaPscCb.jpg'
