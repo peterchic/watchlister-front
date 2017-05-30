@@ -3,22 +3,20 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 // import logo from './logo.svg';
 import './App.css';
 import WatchlistContainer from './components/WatchlistContainer'
+import AllWatchlists from './components/AllWatchlists'
 import WatchlistShow from './components/WatchlistShow'
+// import SearchForm
 // import { Navbar, Jumbotron, Button } from 'react-bootstrap';
 //
-class App extends Component {
-  render() {
+export default () => {
     return (
-      <BrowserRouter>
-        <div className="App">
+        <div>
           <Switch>
-            <Route exact path='/' component={WatchlistContainer} />
-            <Route path='/watchlists' component={WatchlistShow} />
+            <Route path='/watchlists' component={WatchlistContainer} />
+            <Route exact path='/about' render={() => <h1>This is the about page</h1>}/>
           </Switch>
-        </div>
-      </BrowserRouter>
-    );
-  }
+         </div>
+   );
 }
 
-export default App;
+
