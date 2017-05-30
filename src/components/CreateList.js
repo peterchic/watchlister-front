@@ -13,13 +13,13 @@ export default class CreateList extends Component {
   newName(e){
     this.setState({
       name: e.target.value
-    })
+    },()=> console.log(this.state.name))
   }
 
   newDescription(e){
     this.setState({
       description: e.target.value
-    })
+    }, ()=> console.log(this.state.description))
   }
 
   createNewList(){
@@ -29,7 +29,7 @@ export default class CreateList extends Component {
         <div>
           <input type='text' placeholder='name' onChange={this.newName.bind(this)}/>
           <input type='text' placeholder='description' onChange={this.newDescription.bind(this)}/>
-          <input type="button" value="Submit" onClick={function() { return this.props.createList(this.state.name, this.state.desc)}.bind(this) }  />
+          <input type="button" value="Submit" onClick={function() { return this.props.createList(this.state.name, this.state.description)}.bind(this) }  />
           <input type="button" value="Cancel" onClick={this.createNewList.bind(this)}/>
         </div>
             })

@@ -5,8 +5,7 @@ import SearchForm from './SearchForm'
 import MovieCard from './MovieCard'
 import CreateList from './CreateList'
 import MovieList from './MovieList'
-// import WatchlistShow from './WatchlistShow'
-// import { createWatchlist }  from '../api/indexAPI'
+
 
 
 export default class WatchlistContainer extends React.Component {
@@ -19,29 +18,8 @@ export default class WatchlistContainer extends React.Component {
     }
   }
 
-  // componentDidMount(){
-  //   fetch('http://localhost:3000/api/v1/watchlists')
-  //     .then(res => res.json())
-  //     .then(railsDataArr => this.setState({
-  //       watchlists: railsDataArr
-  //     })
-  //   )
-  // }
-
-  // handleAddList(list){
-  //   createWatchlist(list)
-  //     .then( (listData) => {
-  //       console.log(this.state.watchlists);
-  //       this.setState( prevState =>  ({ watchlists: [...prevState.watchlists, listData] }) )
-  //       // this.setState({Object.assign({}, this.state.watchlists, list)})
-  //     })
-  //     .catch(err => console.log(err))
-  // }
-
-
 
   fetchMDB(e){
-    // console.log(e.target.value);
     this.setState(
       { searchTerm: e.target.value }
     , function(){
@@ -59,7 +37,7 @@ export default class WatchlistContainer extends React.Component {
   }
 
   createList(name, description){
-    console.log(name);
+    console.log(name, description);
     fetch("http://localhost:3000/api/v1/watchlists", {
       headers: {
         'Accept': 'application/json',
@@ -92,4 +70,3 @@ export default class WatchlistContainer extends React.Component {
     )
   }
 }
-// 'https://image.tmdb.org/t/p/w185/bbYNNEGLXrV3lJpHDg7CKaPscCb.jpg'
