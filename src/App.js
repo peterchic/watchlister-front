@@ -3,16 +3,20 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom'
 // import logo from './logo.svg';
 import './App.css';
 import WatchlistContainer from './components/WatchlistContainer'
+import WatchlistShow from './components/WatchlistShow'
 // import { Navbar, Jumbotron, Button } from 'react-bootstrap';
 //
 class App extends Component {
   render() {
     return (
-      
+      <BrowserRouter>
         <div className="App">
-          <WatchlistContainer />
+          <Switch>
+            <Route exact path='/' component={WatchlistContainer} />
+            <Route path='/watchlists' component={WatchlistShow} />
+          </Switch>
         </div>
-
+      </BrowserRouter>
     );
   }
 }

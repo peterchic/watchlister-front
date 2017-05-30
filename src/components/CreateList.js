@@ -10,16 +10,34 @@ export default class CreateList extends Component {
     }
   }
 
-  createNewList(){
+  newName(e){
     this.setState({
-      inputField:
-      <div>
-        <input type='text' placeholder='name'/>
-        <input type='text' placeholder='description'/>
-        <input type="button" value="Submit"/>
-      </div>
+      name: e.target.value
     })
-    // this.props.history.push('/students')
+  }
+
+  newDescription(e){
+    this.setState({
+      description: e.target.value
+    })
+  }
+
+  createNewList(){
+    if(!this.state.inputField){
+      this.setState({
+        inputField:
+        <div>
+          <input type='text' placeholder='name' onChange={this.newName.bind(this)}/>
+          <input type='text' placeholder='description' onChange={this.newDescription.bind(this)}/>
+          <input type="button" value="Submit" onClick={function() { return this.props.createList(this.state.name, this.state.desc)}.bind(this) }  />
+          <input type="button" value="Cancel" onClick={this.createNewList.bind(this)}/>
+        </div>
+            })
+    } else {
+      this.setState({
+        inputField: ''
+      })
+    }
   }
 
   render(){
@@ -37,7 +55,7 @@ export default class CreateList extends Component {
         <div>
           {this.state.inputField}
         </div>
-        )
-      }
+      )
     }
   }
+}

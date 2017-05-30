@@ -4,6 +4,8 @@ import WatchlistCard from './WatchlistCard'
 import SearchForm from './SearchForm'
 import MovieCard from './MovieCard'
 import CreateList from './CreateList'
+import MovieList from './MovieList'
+// import WatchlistShow from './WatchlistShow'
 // import { createWatchlist }  from '../api/indexAPI'
 
 
@@ -17,14 +19,14 @@ export default class WatchlistContainer extends React.Component {
     }
   }
 
-  componentDidMount(){
-    fetch('http://localhost:3000/api/v1/watchlists')
-      .then(res => res.json())
-      .then(railsDataArr => this.setState({
-        watchlists: railsDataArr
-      })
-    )
-  }
+  // componentDidMount(){
+  //   fetch('http://localhost:3000/api/v1/watchlists')
+  //     .then(res => res.json())
+  //     .then(railsDataArr => this.setState({
+  //       watchlists: railsDataArr
+  //     })
+  //   )
+  // }
 
   // handleAddList(list){
   //   createWatchlist(list)
@@ -56,27 +58,36 @@ export default class WatchlistContainer extends React.Component {
     )
   }
 
+  createList(name, description){
+    console.log(name);
+    fetch("http://localhost:3000/api/v1/watchlists", {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        watchlist: {
+          name: name,
+          description: description
+        }
+      })
+    })
+    .then( res => res.json())
+    .then( () => this.props.history.push('/watchlists'))
+    .catch(e => console.log('error', e))
+  }
+
   render() {
     // debugger
     return (
       <BrowserRouter>
-      <div>
-        <WatchlistCard watchlists={this.state.watchlists} />
-        <SearchForm handleChange={this.fetchMDB.bind(this)} handleSubmit={this.MDBapiCall.bind(this)} />
-        { this.state.movieResults.results ? this.state.movieResults.results.map(function(movie){
-          let posterURL= `http://image.tmdb.org/t/p/w185${movie.poster_path}`
-          return (
-            <span key={movie.id} className='col-sm-3'>
-              <ul><h2>{movie.title}</h2></ul>
-              <ul><h4>Release Date: {movie.release_date}</h4></ul>
-              <ul>{movie.overview}</ul>
-              <img src={posterURL} />
-              {/* <img src={'https://image.tmdb.org/t/p/w185/{movie.poster_path}'} alt='movie' /> */}
-            </span>
-          )
-        }) : null }
-        <CreateList />
-      </div>
+        <div>
+          <WatchlistCard watchlists={this.state.watchlists} />
+          <CreateList createList={this.createList.bind(this)}/>
+          <SearchForm handleChange={this.fetchMDB.bind(this)} handleSubmit={this.MDBapiCall.bind(this)} />
+          <MovieList movieResults={this.state.movieResults} />
+        </div>
     </BrowserRouter>
     )
   }
