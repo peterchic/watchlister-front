@@ -1,8 +1,3 @@
-// Receive a Watchlist as a prop,
-// reach out to the API to find movies that are on that Watchlist based on the join table,
-// Render out a list of all the movies using the Movie-Card component
-// eventually something like this: this.state.movies.map( movie => <MovieCard movie={movie}/> )
-
 import { Link, Switch, Route } from 'react-router-dom'
 import React from 'react'
 import WatchlistShow from './WatchlistShow'
@@ -25,24 +20,26 @@ export default function WatchlistsPage(props) {
         <ul>
           { watchlistElements }
         </ul>
+      </div>
+      <div className="col-md-8">
         <Switch>
-          <Route exact path="/search"
-                render={()=>
-            <div>
-              <SearchForm handleSearch={props.handleSearch}
-                          handleChange={props.handleChange} />
-              <MovieList watchlists={props.watchlists}
-                        movieResults={props.movieResults}
-                        handleAddMovie={props.handleAddMovie}/>
-            </div>}
+          <Route exact path="/watchlists/search"
+            render={()=>
+              <div>
+                <SearchForm handleSearch={props.handleSearch}
+                  handleChange={props.handleChange} />
+                <MovieList watchlists={props.watchlists}
+                  movieResults={props.movieResults}
+                  handleAddMovie={props.handleAddMovie}/>
+              </div>}
           />
           <Route exact path="/watchlists/:id" render={ ({match}) => {
             const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(match.params.id))
-            return <WatchlistShow onDelete={props.handleDelete} watchlist={watchlist}/>
+              return <WatchlistShow onDelete={props.handleDelete} watchlist={watchlist}/>
           } }/>
           <Route exact path="/watchlists/:id/edit" render={ ({match}) => {
             const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(match.params.id))
-            return <WatchlistEdit handleUpdateWatchlist={props.handleUpdateWatchlist} watchlist={watchlist} />
+              return <WatchlistEdit handleUpdateWatchlist={props.handleUpdateWatchlist} watchlist={watchlist} />
           } }/>
           <Route exact path="/movies/:id" render={ ({match}) => {
             const movie = props.movies.find(movie => movie.id === parseInt(match.params.id))

@@ -18,7 +18,7 @@ export default function WatchlistShow(props) {
         <button className='btn btn-danger' onClick={() => props.onDelete(props.watchlist.id)}>Delete</button>
         <span>
           {props.watchlist.movies.map( movie =>
-            <div key={movie.id}><h3>{movie.title}</h3></div>
+            <Link to={`/movies/${movie.id}`}><li key={movie.id}>{movie.title}</li></Link>
           )}
         </span>
       </div>
