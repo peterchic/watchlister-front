@@ -22,8 +22,8 @@ export default function AllWatchlists(props) {
           { watchlistElements }
         </ul>
         <Switch>
-          <Route path="/watchlists/new" />
-          <Route path="/watchlists" render={()=> <h1>You're at watchlists</h1>} />
+          <Route exact path="/watchlists/new" />
+          <Route exact path="/watchlists" render={()=> <h1>You're at watchlists</h1>} />
         </Switch>
       </div>
       <div className="col-md-8">

@@ -49,23 +49,48 @@ export default class WatchlistContainer extends React.Component {
 
   handleAddMovie(movie, watchlistId){
     createJoin(movie, watchlistId)
-    .then( res => console.log("I came back from the indexAPI and created a join", res))
+    .then( updatedWatchlist => {
+      const newWatchlists = this.state.watchlists.map( wl => {
+        if (wl.id === updatedWatchlist.id ) {
+          return updatedWatchlist
+        } else { return wl }
+        })   
+      this.setState({watchlists: newWatchlists})
+      }
+      )
+    }
+
     // .then( watchlist => this.setState( prevState =>  ({ watchlists: Object.assign({}, this.state.watchlists, {
     //
     // })[...prevState.watchlists, watchlist] }) ))
     // .then( () => this.props.history.push('/watchlists'))
-  }
+  
 
   handleUpdateWatchlist(id, name, description){
     editWatchlist(id, name, description)
-    .then( res => console.log("I came back from the indexAPI and updated a watchlist", res))
-  }
+    .then( updatedWatchlist => {
+      const newWatchlists = this.state.watchlists.map( wl => {
+        if (wl.id === updatedWatchlist.id ) {
+          return updatedWatchlist
+        } else { return wl }
+        })   
+      this.setState({watchlists: newWatchlists})
+      }
+      )
+    }
 
   handleDelete(id){
     deleteWatchlist(id)
-    console.log("I just got back from the rails side")
-    this.props.history.push('/watchlists')
-  }
+    .then( deletedWatchlist => {
+      const newWatchlists = this.state.watchlists.filter( wl => {
+        if (wl.id === deletedWatchlist.id ) {
+          return false
+        } else { return true }
+        })   
+      this.setState({watchlists: newWatchlists})
+      }
+      )
+    }
 
   render() {
     // debugger
