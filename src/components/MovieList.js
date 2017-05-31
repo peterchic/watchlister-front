@@ -7,7 +7,7 @@ export default (props) => {
 
   return(
     <div>
-      {props.movieResults.results ? props.movieResults.results.map(function(movie){
+      {props.movieResults.results ? props.movieResults.results.slice(0,3).map(function(movie){
         let posterURL = ''
         if(!movie.poster_path){
           posterURL = "../not_found.jpg"
