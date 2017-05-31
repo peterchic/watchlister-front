@@ -47,5 +47,5 @@ function deleteMovieFromWatchList(movieId, watchlistId,props) {
       })
     })
     .then( res => res.json())
-    .then(()=> props.props.history.push(`/watchlists`))
+    // .then(()=> props.props.history.push(`/watchlists`))
   }
