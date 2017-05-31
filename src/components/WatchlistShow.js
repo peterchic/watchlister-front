@@ -33,7 +33,6 @@ export default function WatchlistShow(props) {
 
 
 function deleteMovieFromWatchList(movieId, watchlistId,props) {
-
     return fetch(`http://localhost:3000/api/v1/watchlist_movies/${movieId}`, {
      headers: {
         'Accept': 'application/json',
@@ -49,5 +48,4 @@ function deleteMovieFromWatchList(movieId, watchlistId,props) {
     })
     .then( res => res.json())
     .then(()=> props.props.history.push(`/watchlists`))
-
   }
