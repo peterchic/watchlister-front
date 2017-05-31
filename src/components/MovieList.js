@@ -7,14 +7,14 @@ export default (props) => {
 
   return(
     <div>
-      {props.movieResults.results ? props.movieResults.results.map(function(movie){
+      {props.movieResults.results ? props.movieResults.results.slice(0,3).map(function(movie){
         let posterURL = ''
         if(!movie.poster_path){
           posterURL = "../not_found.jpg"
 
         }
         else {
-          posterURL= `http://image.tmdb.org/t/p/w185${movie.poster_path}`
+          posterURL = `http://image.tmdb.org/t/p/w185${movie.poster_path}`
         }
         return (
           <div className="card col-sm-4">

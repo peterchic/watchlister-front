@@ -43,7 +43,7 @@ export default class WatchlistContainer extends React.Component {
     getMovies()
    .then(res => this.setState ({
      movies: res
-   }) )
+   }))
   }
 
   handleAddMovie(movie, watchlistId){
