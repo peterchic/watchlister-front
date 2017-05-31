@@ -22,3 +22,17 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.AllWL {
+  text-align: center;
+}
+
+.demo-card {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 100px;
+}
+
+.col-sm-4 {
+    margin-top:40px;
+}

@@ -17,7 +17,6 @@ export default class WatchlistContainer extends React.Component {
     }
   }
 
-
   handleChange(e){
     this.setState({
       searchTerm: e.target.value
@@ -35,7 +34,6 @@ export default class WatchlistContainer extends React.Component {
     .then( () => this.props.history.push('/watchlists'))
     .catch(e => console.log('error', e))
   }
-
 
   componentDidMount() {
     getWatchlists()

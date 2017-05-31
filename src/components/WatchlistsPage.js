@@ -14,14 +14,14 @@ import MovieShow from './MovieShow'
 
 export default function WatchlistsPage(props) {
   const watchlistElements = props.watchlists.map((li,i) =>
-      <li key={li.id}><Link to={`/watchlists/${li.id}`}><h1>{li.name}</h1></Link></li>)
+      <div key={li.id}><Link to={`/watchlists/${li.id}`}><h1>{li.name}</h1></Link></div>)
 
    if (props.watchlists){
     return(
     <div>
-      <div className="col-md-4">
+      <div className="col-md-3">
         <CreateList handleCreateList={props.handleCreateList} />
-        <h3>All Watchlists</h3>
+        <h3>Your Watchlists</h3>
         <ul>
           { watchlistElements }
         </ul>

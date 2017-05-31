@@ -48,7 +48,6 @@ export default class CreateList extends Component {
 
   }
 
-
   render(){
     if(!this.state.inputField){
       return(
