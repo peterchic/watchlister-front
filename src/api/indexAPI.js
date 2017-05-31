@@ -22,30 +22,13 @@ export function MDBapiCall(searchTerm){
   .then(response => response.json())
 }
 
-// export function addMovie(movie){
-//   console.log('trying to create movie: ', movie)
-// 	return fetch("http://localhost:3000/api/v1/watchlist_movies", {
-// 		headers: {
-//       'Accept': 'application/json',
-//       'Content-Type': 'application/json'
-//     },
-//     method: 'POST',
-//     body: JSON.stringify({
-//       movie: {title: movie.title, description: movie.overview, poster: movie.poster_path, release_date: movie.release_date} 
-//     })
-//   })
-//   .then( function (res) {console.log(res.json())} )
-// }
-
 export function getWatchlists(){
   return fetch('http://localhost:3000/api/v1/watchlists')
       .then(res => res.json())
   }
 
-
-
 export function createJoin(movie, watchlistId){
-  console.log('This is it: ',  movie, watchlistId)
+  console.log('Creating the join from indexAPI ',  movie, watchlistId)
   return fetch("http://localhost:3000/api/v1/watchlist_movies", {
     headers: {
       'Accept': 'application/json',
@@ -56,8 +39,5 @@ export function createJoin(movie, watchlistId){
       watchlist_movie: {watchlist_id: watchlistId, movie: movie }
     })
   })
-  .then( function (res) {console.log(res.json())} )
+  .then(res => res.json())
 }
-
-
-

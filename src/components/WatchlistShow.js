@@ -13,9 +13,8 @@ export default function WatchlistShow(props) {
     <div>
       <h1>{props.watchlist.name}</h1>
       <h1>{props.watchlist.description}</h1>
-      <h1>{props.watchlist.id}</h1>
       <ul>
-      {props.watchlist.movies.map( movie => 
+      {props.watchlist.movies.map( movie =>
         <li key={movie.id}>{movie.title}</li>
       )}
       </ul>

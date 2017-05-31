@@ -5,12 +5,14 @@ import './App.css';
 import WatchlistContainer from './components/WatchlistContainer'
 import AllWatchlists from './components/AllWatchlists'
 import WatchlistShow from './components/WatchlistShow'
+import NavBar from './components/NavBar'
 // import SearchForm
 // import { Navbar, Jumbotron, Button } from 'react-bootstrap';
 //
 export default () => {
     return (
         <div>
+          <NavBar title="Watchlister" color="black" />
           <Switch>
             <Route path='/watchlists' component={WatchlistContainer} />
             <Route exact path='/about' render={() => <h1>This is the about page</h1>}/>
@@ -18,5 +20,3 @@ export default () => {
          </div>
    );
 }
-
-

@@ -5,7 +5,7 @@ import SearchForm from './SearchForm'
 import MovieCard from './MovieCard'
 import CreateList from './CreateList'
 import MovieList from './MovieList'
-import { getWatchlists, createJoin, createList, MDBapiCall } from '../api/indexAPI' 
+import { getWatchlists, createJoin, createList, MDBapiCall } from '../api/indexAPI'
 import AllWatchlists from './AllWatchlists'
 
 
@@ -44,12 +44,16 @@ export default class WatchlistContainer extends React.Component {
       getWatchlists()
       .then( res => this.setState({
         watchlists: res
-      }, () => console.log(this.state.watchlists)))
+      }))
     }
 
   handleAddMovie(movie, watchlistId){
-
     createJoin(movie, watchlistId)
+    .then( res => console.log("I came back from the indexAPI and created a join", res))
+    // .then( watchlist => this.setState( prevState =>  ({ watchlists: Object.assign({}, this.state.watchlists, {
+    //
+    // })[...prevState.watchlists, watchlist] }) ))
+    // .then( () => this.props.history.push('/watchlists'))
   }
 
   // onCreateJoin(watchlist, movie){
@@ -60,10 +64,18 @@ export default class WatchlistContainer extends React.Component {
     // debugger
     return (
       <div>
-           <AllWatchlists watchlists={this.state.watchlists} />
-           <CreateList handleCreateList={this.handleCreateList.bind(this)}/>
-           <SearchForm handleSearch={this.handleSearch.bind(this)} handleChange={this.handleChange.bind(this)} />
-           <MovieList watchlists={this.state.watchlists} movieResults={this.state.movieResults} handleAddMovie={this.handleAddMovie.bind(this)} />
+        <Switch>
+          <Route exact path="/watchlists/search" render={()=>
+            <div>
+              <SearchForm handleSearch={this.handleSearch.bind(this)} handleChange={this.handleChange.bind(this)} />
+              <MovieList watchlists={this.state.watchlists} movieResults={this.state.movieResults} handleAddMovie={this.handleAddMovie.bind(this)}/>
+            </div>}/>
+            <Route path="/watchlists" render={() =>
+              <div>
+                <AllWatchlists watchlists={this.state.watchlists} />
+                <CreateList handleCreateList={this.handleCreateList.bind(this)} />
+            </div>} />
+         </Switch>
       </div>
     )
   }
