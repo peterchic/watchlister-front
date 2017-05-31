@@ -47,7 +47,6 @@ class WatchlistEdit extends React.Component {
     if (!this.props.watchlist) {
       return null
     }
-    console.log("here are my props: ", this.props.watchlist.name)
     return (
       <div className='col-md-8' >
         <h2>EDIT FORM</h2>

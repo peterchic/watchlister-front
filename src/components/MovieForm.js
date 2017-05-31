@@ -8,9 +8,6 @@ export default class MovieForm extends React.Component {
 
   handleSubmit(e){
     e.preventDefault();
-    console.log("Im trying to handle submit to add a movie")
-    console.log(this.props.movie)
-    console.log(this.state.value)
     this.props.handleAddMovie(this.props.movie, this.state.value)
   }
 

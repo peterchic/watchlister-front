@@ -1,5 +1,6 @@
 import React from 'react'
-import {Link } from 'react-router-dom'
+import {Link, Switch, Route } from 'react-router-dom'
+import MovieShow from './MovieShow'
 export default function WatchlistShow(props) {
 
 
@@ -8,7 +9,6 @@ export default function WatchlistShow(props) {
       <h1>Loading the Show Page</h1>
       )
   }
-  console.log(props.watchlist.movies)
   return (
     <div className="AllWL">
       <div col-md-3>
@@ -22,6 +22,7 @@ export default function WatchlistShow(props) {
           )}
         </span>
       </div>
+
     </div>
   )
 }

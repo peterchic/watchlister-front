@@ -10,6 +10,7 @@ import CreateList from './CreateList'
 import WatchlistEdit from './WatchlistEdit'
 import SearchForm from './SearchForm'
 import MovieList from './MovieList'
+import MovieShow from './MovieShow'
 
 export default function WatchlistsPage(props) {
   const watchlistElements = props.watchlists.map((li,i) =>
@@ -24,10 +25,8 @@ export default function WatchlistsPage(props) {
         <ul>
           { watchlistElements }
         </ul>
-      </div>
-      <div className="col-md-8">
         <Switch>
-          <Route exact path="/watchlists/search"
+          <Route exact path="/search"
                 render={()=>
             <div>
               <SearchForm handleSearch={props.handleSearch}
@@ -44,6 +43,10 @@ export default function WatchlistsPage(props) {
           <Route exact path="/watchlists/:id/edit" render={ ({match}) => {
             const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(match.params.id))
             return <WatchlistEdit handleUpdateWatchlist={props.handleUpdateWatchlist} watchlist={watchlist} />
+          } }/>
+          <Route exact path="/movies/:id" render={ ({match}) => {
+            const movie = props.movies.find(movie => movie.id === parseInt(match.params.id))
+            return <MovieShow movie={movie}/>
           } }/>
         </Switch>
       </div>

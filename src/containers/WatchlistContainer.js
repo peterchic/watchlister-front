@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { getWatchlists, createJoin, createList, editWatchlist, deleteWatchlist } from '../api/indexRailsAPI'
+import { getWatchlists, createJoin, createList, editWatchlist, deleteWatchlist, getMovies } from '../api/indexRailsAPI'
 import { MDBapiCall } from '../api/indexMDB'
 import WatchlistsPage from '../components/WatchlistsPage'
 
@@ -12,7 +12,8 @@ export default class WatchlistContainer extends React.Component {
     this.state = {
       movieResults: false,
       watchlists: [],
-      searchTerm: ''
+      searchTerm: '',
+      movies: []
     }
   }
 
@@ -24,7 +25,7 @@ export default class WatchlistContainer extends React.Component {
 
   handleSearch(searchTerm) {
     MDBapiCall(searchTerm)
-    .then(MDBData => this.setState({ movieResults: MDBData }))
+    .then( data => this.setState({ movieResults: data }))
   }
 
   handleCreateList(name, description) {
@@ -39,6 +40,10 @@ export default class WatchlistContainer extends React.Component {
     .then( res => this.setState({
       watchlists: res
     }))
+    getMovies()
+   .then(res => this.setState ({
+     movies: res
+   }) )
   }
 
   handleAddMovie(movie, watchlistId){
@@ -84,6 +89,7 @@ export default class WatchlistContainer extends React.Component {
     return (
       <div>
         <WatchlistsPage watchlists={this.state.watchlists}
+                        movies={this.state.movies}
                         handleDelete={this.handleDelete.bind(this)}
                         handleUpdateWatchlist={this.handleUpdateWatchlist.bind(this)}
                         handleCreateList={this.handleCreateList.bind(this)}
