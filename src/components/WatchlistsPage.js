@@ -33,9 +33,10 @@ export default function WatchlistsPage(props) {
                   handleAddMovie={props.handleAddMovie}/>
               </div>}
           />
-          <Route exact path="/watchlists/:id" render={ ({match}) => {
-            const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(match.params.id))
-              return <WatchlistShow onDelete={props.handleDelete} watchlist={watchlist}/>
+          <Route exact path="/watchlists/:id" render={ (newProps) => {
+
+            const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(newProps.match.params.id))
+              return <WatchlistShow props={newProps} onDelete={props.handleDelete} watchlist={watchlist}/>
           } }/>
           <Route exact path="/watchlists/:id/edit" render={ ({match}) => {
             const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(match.params.id))
