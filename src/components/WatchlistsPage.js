@@ -4,12 +4,14 @@
 // eventually something like this: this.state.movies.map( movie => <MovieCard movie={movie}/> )
 
 import { Link, Switch, Route } from 'react-router-dom'
-import React, { Component } from 'react'
+import React from 'react'
 import WatchlistShow from './WatchlistShow'
 import CreateList from './CreateList'
 import WatchlistEdit from './WatchlistEdit'
+import SearchForm from './SearchForm'
+import MovieList from './MovieList'
 
-export default function AllWatchlists(props) {
+export default function WatchlistsPage(props) {
   const watchlistElements = props.watchlists.map((li,i) =>
       <li key={li.id}><Link to={`/watchlists/${li.id}`}><h1>{li.name}</h1></Link></li>)
 
@@ -17,17 +19,24 @@ export default function AllWatchlists(props) {
     return(
     <div>
       <div className="col-md-4">
+        <CreateList handleCreateList={props.handleCreateList} />
         <h3>All Watchlists</h3>
         <ul>
           { watchlistElements }
         </ul>
-        <Switch>
-          <Route exact path="/watchlists/new" />
-          <Route exact path="/watchlists" render={()=> <h1>You're at watchlists</h1>} />
-        </Switch>
       </div>
       <div className="col-md-8">
         <Switch>
+          <Route exact path="/watchlists/search"
+                render={()=>
+            <div>
+              <SearchForm handleSearch={props.handleSearch}
+                          handleChange={props.handleChange} />
+              <MovieList watchlists={props.watchlists}
+                        movieResults={props.movieResults}
+                        handleAddMovie={props.handleAddMovie}/>
+            </div>}
+          />
           <Route exact path="/watchlists/:id" render={ ({match}) => {
             const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(match.params.id))
             return <WatchlistShow onDelete={props.handleDelete} watchlist={watchlist}/>
