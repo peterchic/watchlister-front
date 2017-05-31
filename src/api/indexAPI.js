@@ -41,3 +41,25 @@ export function createJoin(movie, watchlistId){
   })
   .then(res => res.json())
 }
+
+export function editWatchlist(id, name, description){
+    return fetch(`http://localhost:3000/api/v1/watchlists/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH',
+      body: JSON.stringify({
+        watchlist: {
+          name: name,
+          description: description
+        }
+      })
+    })
+    .then( res => res.json())
+  }
+
+export function deleteWatchlist(id){
+  return fetch(`http://localhost:3000/api/v1/watchlists/${id}`, { method: 'DELETE'})
+    .then( res => res.json() )
+}

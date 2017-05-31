@@ -5,7 +5,7 @@ import SearchForm from './SearchForm'
 import MovieCard from './MovieCard'
 import CreateList from './CreateList'
 import MovieList from './MovieList'
-import { getWatchlists, createJoin, createList, MDBapiCall } from '../api/indexAPI'
+import { getWatchlists, createJoin, createList, MDBapiCall, editWatchlist, deleteWatchlist } from '../api/indexAPI'
 import AllWatchlists from './AllWatchlists'
 
 
@@ -40,12 +40,12 @@ export default class WatchlistContainer extends React.Component {
   }
 
 
-    componentDidMount() {
-      getWatchlists()
-      .then( res => this.setState({
-        watchlists: res
-      }))
-    }
+  componentDidMount() {
+    getWatchlists()
+    .then( res => this.setState({
+      watchlists: res
+    }))
+  }
 
   handleAddMovie(movie, watchlistId){
     createJoin(movie, watchlistId)
@@ -56,9 +56,16 @@ export default class WatchlistContainer extends React.Component {
     // .then( () => this.props.history.push('/watchlists'))
   }
 
-  // onCreateJoin(watchlist, movie){
-  //   createJoin(watchlist, movie)
-  // }
+  handleUpdateWatchlist(id, name, description){
+    editWatchlist(id, name, description)
+    .then( res => console.log("I came back from the indexAPI and updated a watchlist", res))
+  }
+
+  handleDelete(id){
+    deleteWatchlist(id)
+    console.log("I just got back from the rails side")
+    this.props.history.push('/watchlists')
+  }
 
   render() {
     // debugger
@@ -72,7 +79,7 @@ export default class WatchlistContainer extends React.Component {
             </div>}/>
             <Route path="/watchlists" render={() =>
               <div>
-                <AllWatchlists watchlists={this.state.watchlists} />
+                <AllWatchlists watchlists={this.state.watchlists} handleDelete={this.handleDelete.bind(this)} handleUpdateWatchlist={this.handleUpdateWatchlist.bind(this)} />
                 <CreateList handleCreateList={this.handleCreateList.bind(this)} />
             </div>} />
          </Switch>
