@@ -1,5 +1,6 @@
 import React from 'react'
-import {Link } from 'react-router-dom'
+import {Link, Switch, Route } from 'react-router-dom'
+import MovieShow from './MovieShow'
 export default function WatchlistShow(props) {
 
 
@@ -8,7 +9,6 @@ export default function WatchlistShow(props) {
       <h1>Loading the Show Page</h1>
       )
   }
-  console.log(props.watchlist.movies)
   return (
     <div>
       <h1>{props.watchlist.name}</h1>
@@ -16,9 +16,9 @@ export default function WatchlistShow(props) {
       <Link className="btn btn-primary" to={`/watchlists/${props.watchlist.id}/edit`}>Edit Watchlist</Link>
       <button className='btn btn-danger' onClick={() => props.onDelete(props.watchlist.id)}>Delete</button>
       <ul>
-      {props.watchlist.movies.map( movie =>
-        <li key={movie.id}>{movie.title}</li>
-      )}
+        {props.watchlist.movies.map( movie =>
+          <Link to={`/movies/${movie.id}`}><li key={movie.id}>{movie.title}</li></Link>
+        )}
       </ul>
     </div>
   )
