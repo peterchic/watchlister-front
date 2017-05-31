@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import WatchlistShow from './WatchlistShow'
-import SearchForm from './SearchForm'
-import MovieCard from './MovieCard'
-import CreateList from './CreateList'
-import MovieList from './MovieList'
-import { getWatchlists, createJoin, createList, MDBapiCall, editWatchlist, deleteWatchlist } from '../api/indexAPI'
-import AllWatchlists from './AllWatchlists'
+import { getWatchlists, createJoin, createList, editWatchlist, deleteWatchlist } from '../api/indexRailsAPI'
+import { MDBapiCall } from '../api/indexMDB'
+import WatchlistsPage from '../components/WatchlistsPage'
 
 
 
@@ -54,17 +50,11 @@ export default class WatchlistContainer extends React.Component {
         if (wl.id === updatedWatchlist.id ) {
           return updatedWatchlist
         } else { return wl }
-        })   
+        })
       this.setState({watchlists: newWatchlists})
       }
       )
     }
-
-    // .then( watchlist => this.setState( prevState =>  ({ watchlists: Object.assign({}, this.state.watchlists, {
-    //
-    // })[...prevState.watchlists, watchlist] }) ))
-    // .then( () => this.props.history.push('/watchlists'))
-  
 
   handleUpdateWatchlist(id, name, description){
     editWatchlist(id, name, description)
@@ -73,7 +63,7 @@ export default class WatchlistContainer extends React.Component {
         if (wl.id === updatedWatchlist.id ) {
           return updatedWatchlist
         } else { return wl }
-        })   
+        })
       this.setState({watchlists: newWatchlists})
       }
       )
@@ -86,28 +76,24 @@ export default class WatchlistContainer extends React.Component {
         if (wl.id === deletedWatchlist.id ) {
           return false
         } else { return true }
-        })   
+        })
       this.setState({watchlists: newWatchlists})
       }
       )
     }
 
   render() {
-    // debugger
     return (
       <div>
-        <Switch>
-          <Route exact path="/watchlists/search" render={()=>
-            <div>
-              <SearchForm handleSearch={this.handleSearch.bind(this)} handleChange={this.handleChange.bind(this)} />
-              <MovieList watchlists={this.state.watchlists} movieResults={this.state.movieResults} handleAddMovie={this.handleAddMovie.bind(this)}/>
-            </div>}/>
-            <Route path="/watchlists" render={() =>
-              <div>
-                <AllWatchlists watchlists={this.state.watchlists} handleDelete={this.handleDelete.bind(this)} handleUpdateWatchlist={this.handleUpdateWatchlist.bind(this)} />
-                <CreateList handleCreateList={this.handleCreateList.bind(this)} />
-            </div>} />
-         </Switch>
+        <WatchlistsPage watchlists={this.state.watchlists}
+                        handleDelete={this.handleDelete.bind(this)}
+                        handleUpdateWatchlist={this.handleUpdateWatchlist.bind(this)}
+                        handleCreateList={this.handleCreateList.bind(this)}
+                        handleSearch={this.handleSearch.bind(this)}
+                        handleChange={this.handleChange.bind(this)}
+                        movieResults={this.state.movieResults}
+                        handleAddMovie={this.handleAddMovie.bind(this)}
+                      />
       </div>
     )
   }
