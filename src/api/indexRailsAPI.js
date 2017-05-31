@@ -1,4 +1,4 @@
-// Requests to our Rails API 
+// Requests to our Rails API
 
 export function getWatchlists(){
   return fetch('http://localhost:3000/api/v1/watchlists')
@@ -22,9 +22,12 @@ export function createList(name, description){
     .then( res => res.json())
   }
 
+export function getMovies() {
+    return fetch('http://localhost:3000/api/v1/movies')
+    .then(res => res.json())
+  }
 
 export function createJoin(movie, watchlistId){
-  console.log('Creating the join from indexAPI ',  movie, watchlistId)
   return fetch("http://localhost:3000/api/v1/watchlist_movies", {
     headers: {
       'Accept': 'application/json',

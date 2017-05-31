@@ -11,12 +11,14 @@ import NavBar from './components/NavBar'
 //
 export default () => {
     return (
-        <div>
+      <div className="container-fluid">
           <NavBar title="Watchlister" color="black" />
+          <div className="container">
           <Switch>
-            <Route path='/watchlists' component={WatchlistContainer} />
+            <Route path='/' component={WatchlistContainer} />
             <Route exact path='/about' render={() => <h1>This is the about page</h1>}/>
           </Switch>
+        </div>
         </div>
    );
 }
