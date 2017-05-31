@@ -1,6 +1,7 @@
 import React from 'react'
 import {Link, Switch, Route } from 'react-router-dom'
 import MovieShow from './MovieShow'
+
 export default function WatchlistShow(props) {
 
 
@@ -18,7 +19,7 @@ export default function WatchlistShow(props) {
         <button className='btn btn-danger' onClick={() => props.onDelete(props.watchlist.id)}>Delete</button>
         <span>
           {props.watchlist.movies.map( movie =>
-            <Link to={`/movies/${movie.id}`}><li key={movie.id}>{movie.title}</li></Link>
+            <div><Link to={`/movies/${movie.id}`}><li key={movie.id}>{movie.title}</li></Link><span><button type="button" onClick={() => deleteMovieFromWatchList(movie.id, props.watchlist.id, props)}>Delete</button></span></div>
           )}
         </span>
       </div>
@@ -26,3 +27,27 @@ export default function WatchlistShow(props) {
     </div>
   )
 }
+
+
+
+function deleteMovieFromWatchList(movieId, watchlistId,props) {
+ 
+    return fetch(`http://localhost:3000/api/v1/watchlist_movies/${movieId}`, {
+     headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'delete',
+      body: JSON.stringify({
+        watchlist_movie: {
+          movie_id: movieId,
+          watchlist_id: watchlistId
+        }
+      })
+    })
+    .then( res => res.json())
+    .then(()=> props.props.history.push(`/watchlists`))
+    
+  }
+
+
