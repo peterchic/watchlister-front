@@ -35,7 +35,7 @@ export default function WatchlistsPage(props) {
           />
           <Route exact path="/watchlists/:id" render={ (newProps) => {
             const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(newProps.match.params.id))
-              return <WatchlistShow props={newProps} onDelete={props.handleDelete} watchlist={watchlist}/>
+              return <WatchlistShow props={newProps} onDelete={props.handleDelete} watchlist={watchlist} handleDeleteMovie={props.handleDeleteMovie}/>
           } }/>
           <Route exact path="/watchlists/:id/edit" render={ ({match}) => {
             const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(match.params.id))

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { getWatchlists, createJoin, createList, editWatchlist, deleteWatchlist, getMovies } from '../api/indexRailsAPI'
+import { getWatchlists, createJoin, createList, editWatchlist, deleteWatchlist, getMovies, deleteMovie } from '../api/indexRailsAPI'
 import { MDBapiCall } from '../api/indexMDB'
 import WatchlistsPage from '../components/WatchlistsPage'
 
@@ -72,18 +72,34 @@ export default class WatchlistContainer extends React.Component {
       )
     }
 
-  handleDelete(id){
+  handleDelete(id, movies){
     deleteWatchlist(id)
     .then( deletedWatchlist => {
       const newWatchlists = this.state.watchlists.filter( wl => {
         if (wl.id === deletedWatchlist.id ) {
           return false
-        } else { return true }
-        })
+        } else {
+          console.log('wtf', wl);
+          return true
+        }
+      })
       this.setState({watchlists: newWatchlists})
-      }
-      )
+      })
     }
+
+    handleDeleteMovie(movieId, watchlistId){
+      deleteMovie(movieId, watchlistId)
+      .then( deletedMovie => {
+        const newMovieList = this.state.movies.filter( movie => {
+          if (movie.id === deletedMovie.id ) {
+            return false
+          } else {
+            return true
+          }
+        })
+        this.setState({movies: newMovieList})
+        })
+      }
 
   render() {
     return (
@@ -97,6 +113,7 @@ export default class WatchlistContainer extends React.Component {
                         handleChange={this.handleChange.bind(this)}
                         movieResults={this.state.movieResults}
                         handleAddMovie={this.handleAddMovie.bind(this)}
+                        handleDeleteMovie={this.handleDeleteMovie.bind(this)}
                       />
       </div>
     )
