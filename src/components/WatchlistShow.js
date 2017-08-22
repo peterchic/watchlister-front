@@ -10,6 +10,8 @@ export default function WatchlistShow(props) {
       <h1>Loading the Show Page</h1>
       )
   }
+  console.log('will this work', props.watchlist.movies);
+  console.log('will this work 2', props.watchlist);
   return (
     <div className="AllWL">
       <div col-md-3>
@@ -21,7 +23,7 @@ export default function WatchlistShow(props) {
         <ul className="list-group">
           {props.watchlist.movies.map( movie =>
             <div>
-            <li className="list-group-item" key={movie.id}><Link to={`/movies/${movie.id}`}><h3>{movie.title}</h3></Link><button type="button" className="btn btn-danger" onClick={() => props.handleDeleteMovie(movie.id, props.watchlist.id)}>Remove</button></li>
+            <li className="list-group-item" key={movie.id}><Link to={`/movies/${movie.id}`}><h3>{movie.title}</h3></Link><button type="button" className="btn btn-danger" onClick={() => props.handleDeleteWatchlistMovie(movie.id, props.watchlist.id)}>Remove</button></li>
           </div>
           )}
         </ul>

@@ -8,7 +8,7 @@ import MovieList from './MovieList'
 import MovieShow from './MovieShow'
 
 export default function WatchlistsPage(props) {
-  const watchlistElements = props.watchlists.map((watchlist, i ) =>
+  const watchlistElements = props.watchlists.map((watchlist) =>
       <li className="list-group-item" key={watchlist.id}><Link to={`/watchlists/${watchlist.id}`}><h4>{watchlist.name}</h4></Link></li>)
 
    if (props.watchlists){
@@ -35,7 +35,7 @@ export default function WatchlistsPage(props) {
           />
           <Route exact path="/watchlists/:id" render={ (newProps) => {
             const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(newProps.match.params.id))
-              return <WatchlistShow props={newProps} onDelete={props.handleDelete} watchlist={watchlist} handleDeleteMovie={props.handleDeleteMovie}/>
+              return <WatchlistShow props={newProps} onDelete={props.handleDelete} watchlist={watchlist} handleDeleteWatchlistMovie={props.handleDeleteWatchlistMovie} movies={props.movies}/>
           } }/>
           <Route exact path="/watchlists/:id/edit" render={ ({match}) => {
             const watchlist = props.watchlists.find(watchlist => watchlist.id === parseInt(match.params.id))

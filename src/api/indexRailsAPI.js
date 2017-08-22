@@ -63,7 +63,7 @@ export function deleteWatchlist(id){
     .then( res => res.json() )
 }
 
-export function deleteMovie(movieId, watchlistId) {
+export function deleteWatchlistMovie(movieId, watchlistId) {
   console.log('delete movies from list: ', movieId, watchlistId);
     return fetch(`http://localhost:3000/api/v1/watchlist_movies/${movieId}`, {
      headers: {

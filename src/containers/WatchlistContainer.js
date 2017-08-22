@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { getWatchlists, createJoin, createList, editWatchlist, deleteWatchlist, getMovies, deleteMovie } from '../api/indexRailsAPI'
+import { getWatchlists, createJoin, createList, editWatchlist, deleteWatchlist, getMovies, deleteWatchlistMovie } from '../api/indexRailsAPI'
 import { MDBapiCall } from '../api/indexMDB'
 import WatchlistsPage from '../components/WatchlistsPage'
 
@@ -79,7 +79,6 @@ export default class WatchlistContainer extends React.Component {
         if (wl.id === deletedWatchlist.id ) {
           return false
         } else {
-          console.log('wtf', wl);
           return true
         }
       })
@@ -87,21 +86,31 @@ export default class WatchlistContainer extends React.Component {
       })
     }
 
-    handleDeleteMovie(movieId, watchlistId){
-      deleteMovie(movieId, watchlistId)
+    handleDeleteWatchlistMovie(movieId, watchlistId){
+      deleteWatchlistMovie(movieId, watchlistId)
       .then( deletedMovie => {
-        const newMovieList = this.state.movies.filter( movie => {
-          if (movie.id === deletedMovie.id ) {
+        console.log('what is this?', deletedMovie);
+        console.log('wl state', this.state.watchlists);
+
+        const currentList = this.state.watchlists.filter( wl => {
+          if (deletedMovie.watchlist_id === wl.id){
+            return wl
+          }
+        })
+
+        const newWatchList = currentList.filter( wl => {
+          if (wl.id === deletedMovie.watchlist_id ) {
             return false
           } else {
             return true
           }
         })
-        this.setState({movies: newMovieList})
+        this.setState({movies: newWatchList.movies})
         })
       }
 
   render() {
+    console.log('container', this.state);
     return (
       <div>
         <WatchlistsPage watchlists={this.state.watchlists}
@@ -113,7 +122,7 @@ export default class WatchlistContainer extends React.Component {
                         handleChange={this.handleChange.bind(this)}
                         movieResults={this.state.movieResults}
                         handleAddMovie={this.handleAddMovie.bind(this)}
-                        handleDeleteMovie={this.handleDeleteMovie.bind(this)}
+                        handleDeleteWatchlistMovie={this.handleDeleteWatchlistMovie.bind(this)}
                       />
       </div>
     )
