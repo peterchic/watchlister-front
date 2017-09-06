@@ -1,6 +1,6 @@
 // Requests to our Rails API
 
-const baseUrl = "https://git.heroku.com/watchlister-back.git"
+const baseUrl = "https://watchlister-api.herokuapp.com"
 
 export function getWatchlists(){
   return fetch(`${baseUrl}/watchlists`)
