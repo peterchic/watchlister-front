@@ -16,7 +16,7 @@ export default () => {
           <div className="container">
           <Switch>
             <Route path='/' component={WatchlistContainer} />
-            <Route exact path='/about' render={() => <h1>This is the about page</h1>}/>
+            <Route exact path='/about' render={() => <h1>This is my about page. There are many like it, but this one is mine.</h1>}/>
           </Switch>
         </div>
         </div>

@@ -2,6 +2,7 @@
   "name": "watchlister-client",
   "version": "0.1.0",
   "private": true,
+  "homepage": "http://peterchic.github.io/watchlister-client",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "react": "^15.5.4",
@@ -12,6 +13,7 @@
     "redux": "^3.7.2"
   },
   "devDependencies": {
+    "gh-pages": "^1.0.0",
     "react-scripts": "1.0.6",
     "redux-devtools": "^3.4.0"
   },
@@ -19,7 +21,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "engines": {
     "node": "8.4.0",
