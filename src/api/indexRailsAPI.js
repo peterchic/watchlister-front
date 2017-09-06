@@ -1,12 +1,14 @@
 // Requests to our Rails API
 
+const baseUrl = "http://localhost:3000/api/v1"
+
 export function getWatchlists(){
-  return fetch('http://localhost:3000/api/v1/watchlists')
+  return fetch(`${baseUrl}/watchlists`)
   .then(res => res.json())
 }
 
 export function createList(name, description){
-    return fetch("http://localhost:3000/api/v1/watchlists", {
+    return fetch(`${baseUrl}/watchlists`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -23,12 +25,12 @@ export function createList(name, description){
   }
 
 export function getMovies() {
-    return fetch('http://localhost:3000/api/v1/movies')
+    return fetch(`${baseUrl}/movies`)
     .then(res => res.json())
   }
 
 export function createJoin(movie, watchlistId){
-  return fetch("http://localhost:3000/api/v1/watchlist_movies", {
+  return fetch(`${baseUrl}/watchlist_movies`, {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
@@ -42,7 +44,7 @@ export function createJoin(movie, watchlistId){
 }
 
 export function editWatchlist(id, name, description){
-    return fetch(`http://localhost:3000/api/v1/watchlists/${id}`, {
+    return fetch(`${baseUrl}/watchlists/${id}`, {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
@@ -59,13 +61,13 @@ export function editWatchlist(id, name, description){
   }
 
 export function deleteWatchlist(id){
-  return fetch(`http://localhost:3000/api/v1/watchlists/${id}`, { method: 'DELETE'})
+  return fetch(`${baseUrl}/watchlists/${id}`, { method: 'DELETE'})
     .then( res => res.json() )
 }
 
 export function deleteWatchlistMovie(movieId, watchlistId) {
   console.log('delete movies from list: ', movieId, watchlistId);
-    return fetch(`http://localhost:3000/api/v1/watchlist_movies/${movieId}`, {
+    return fetch(`${baseUrl}/api/v1/watchlist_movies/${movieId}`, {
      headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
