@@ -68,13 +68,15 @@ export default class WatchlistContainer extends React.Component {
         } else { return wl }
         })
       this.setState({watchlists: newWatchlists})
-      }
-      )
+      })
+      this.props.history.push(`/watchlists/${id}`)
     }
 
-  handleDelete(id, movies){
+  handleDelete(id){
+    console.log("going to api", id);
     deleteWatchlist(id)
     .then( deletedWatchlist => {
+      console.log("deleted wl", deletedWatchlist);
       const newWatchlists = this.state.watchlists.filter( wl => {
         if (wl.id === deletedWatchlist.id ) {
           return false
@@ -89,28 +91,19 @@ export default class WatchlistContainer extends React.Component {
     handleDeleteWatchlistMovie(movieId, watchlistId){
       deleteWatchlistMovie(movieId, watchlistId)
       .then( deletedMovie => {
-        console.log('what is this?', deletedMovie);
-        console.log('wl state', this.state.watchlists);
-
-        const currentList = this.state.watchlists.filter( wl => {
-          if (deletedMovie.watchlist_id === wl.id){
-            return wl
+        let newWatchlists = this.state.watchlists;
+        newWatchlists.map((watchlist) => {
+          if (watchlist.id === deletedMovie.watchlist_id){
+            let deletedMoviePos = watchlist.movies.map(function(movie) {return movie.id; }).indexOf(deletedMovie.movie_id);
+            watchlist.movies.splice(deletedMoviePos,1);
           }
         })
-
-        const newWatchList = currentList.filter( wl => {
-          if (wl.id === deletedMovie.watchlist_id ) {
-            return false
-          } else {
-            return true
-          }
-        })
-        this.setState({movies: newWatchList.movies})
-        })
-      }
+        this.setState({watchlists: newWatchlists})
+      });
+    }
 
   render() {
-    console.log('container', this.state);
+    // console.log('container', this.state);
     return (
       <div>
         <WatchlistsPage watchlists={this.state.watchlists}

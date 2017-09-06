@@ -7,11 +7,10 @@ export default function WatchlistShow(props) {
 
   if (!props.watchlist) {
     return (
-      <h1>Loading the Show Page</h1>
+      <h1>No watchlists exists. Click the 'create list' button to get started!</h1>
       )
   }
-  console.log('will this work', props.watchlist.movies);
-  console.log('will this work 2', props.watchlist);
+
   return (
     <div className="AllWL">
       <div col-md-3>

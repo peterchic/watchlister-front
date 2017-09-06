@@ -1,6 +1,7 @@
 // Requests to our Rails API
 
-const baseUrl = "https://watchlister-api.herokuapp.com"
+const baseUrl = "https://watchlister-api.herokuapp.com/api/v1"
+// const baseUrl = "http://localhost:3000/api/v1"
 
 export function getWatchlists(){
   return fetch(`${baseUrl}/watchlists`)
@@ -66,8 +67,7 @@ export function deleteWatchlist(id){
 }
 
 export function deleteWatchlistMovie(movieId, watchlistId) {
-  console.log('delete movies from list: ', movieId, watchlistId);
-    return fetch(`${baseUrl}/api/v1/watchlist_movies/${movieId}`, {
+    return fetch(`${baseUrl}/watchlist_movies/${movieId}`, {
      headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

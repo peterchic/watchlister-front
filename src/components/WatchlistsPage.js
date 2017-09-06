@@ -8,6 +8,7 @@ import MovieList from './MovieList'
 import MovieShow from './MovieShow'
 
 export default function WatchlistsPage(props) {
+
   const watchlistElements = props.watchlists.map((watchlist) =>
       <li className="list-group-item" key={watchlist.id}><Link to={`/watchlists/${watchlist.id}`}><h4>{watchlist.name}</h4></Link></li>)
 
