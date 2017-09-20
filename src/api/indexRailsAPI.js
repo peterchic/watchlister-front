@@ -1,7 +1,7 @@
 // Requests to our Rails API
 
-const baseUrl = "https://watchlister-api.herokuapp.com/api/v1"
-// const baseUrl = "http://localhost:3000/api/v1"
+// const baseUrl = "https://watchlister-api.herokuapp.com/api/v1"
+const baseUrl = "http://localhost:3000/api/v1"
 
 export function getWatchlists(){
   return fetch(`${baseUrl}/watchlists`)
